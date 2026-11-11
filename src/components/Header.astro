@@ -12,7 +12,7 @@ const nav = [
   <p>Now booking at {site.address.street}, {site.address.suburb} <span aria-hidden="true">·</span> <a href={site.bookingUrl}>Book an appointment</a></p>
 </div>
 <header class="header">
-  <div class="header__bar wrap">
+  <div class="header__bar">
     <button class="header__toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <span></span><span></span>
     </button>
@@ -48,9 +48,9 @@ const nav = [
   .announce p { margin: 0; }
   .announce a { color: #fff; text-underline-offset: 3px; }
   .header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
-  .header__bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 76px; }
-  .header__phone { justify-self: start; font-size: 13px; text-decoration: none; color: var(--ink-soft); }
-  .header__phone:hover { color: var(--ink); }
+  .header__bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 76px; padding: 0 clamp(16px, 2.5vw, 40px); }
+  .header__phone { justify-self: start; font-size: 14px; font-weight: 700; letter-spacing: .02em; text-decoration: none; color: var(--ink); }
+  .header__phone:hover { color: var(--burgundy); }
   .wordmark { font-family: var(--serif); font-size: clamp(26px, 3.2vw, 38px); text-decoration: none; letter-spacing: -0.02em; line-height: 1; }
   .header__cta { justify-self: end; min-height: 42px; padding: 0 22px; }
   .header__toggle { display: none; }
