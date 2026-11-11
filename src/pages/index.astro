@@ -18,13 +18,13 @@ const steps = [
 <Base>
   <section class="hero">
     <Photo label="Hero image" ratio="auto" class="hero__photo" />
-    <div class="hero__card">
+    <div class="hero__content wrap">
       <p class="eyebrow">Cosmetic nurse · Prahran</p>
       <h1>Feel confident in <em>your own skin.</em></h1>
       <p>Personalised laser and IPL treatments on Chapel St, tailored to your concerns with high-quality, consistent care every visit.</p>
       <div class="hero__actions">
-        <a class="btn" href={site.bookingUrl}>Book an appointment</a>
-        <a class="btn btn--ghost" href="/treatments">View treatments</a>
+        <a class="btn btn--light" href={site.bookingUrl}>Book an appointment</a>
+        <a class="btn btn--outline-light" href="/treatments">View treatments</a>
       </div>
     </div>
   </section>
@@ -101,11 +101,17 @@ const steps = [
 <style>
   em { font-style: italic; color: var(--burgundy); }
   .center { text-align: center; }
-  .hero { position: relative; display: grid; min-height: min(78vh, 720px); }
+  .hero { position: relative; display: grid; align-items: end; min-height: min(80vh, 760px); color: #fff; }
   .hero :global(.hero__photo) { position: absolute; inset: 0; aspect-ratio: auto; }
-  .hero__card { position: relative; align-self: end; margin: var(--gutter); max-width: 520px; background: #fff; padding: clamp(28px, 4vw, 48px); }
-  .hero h1 { font-size: clamp(38px, 5vw, 60px); margin: 14px 0 18px; }
-  .hero__card > p:not(.eyebrow) { color: var(--ink-soft); }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27,20,22,.55) 0%, rgba(27,20,22,.25) 45%, rgba(27,20,22,0) 75%), linear-gradient(0deg, rgba(27,20,22,.35), rgba(27,20,22,0) 50%); pointer-events: none; }
+  .hero__content { position: relative; z-index: 1; width: 100%; padding-top: 80px; padding-bottom: clamp(48px, 8vw, 96px); }
+  .hero__content > * { max-width: 620px; }
+  .hero .eyebrow { color: rgba(255,255,255,.85); }
+  .hero h1 { font-size: clamp(44px, 6.4vw, 84px); margin: 14px 0 20px; text-shadow: 0 2px 24px rgba(27,20,22,.2); }
+  .hero h1 em { color: var(--blush); }
+  .hero__content > p:not(.eyebrow) { font-size: 17px; color: rgba(255,255,255,.92); max-width: 480px; }
+  .hero__actions .btn--outline-light { background: transparent; color: #fff; border-color: #fff; }
+  .hero__actions .btn--outline-light:hover { background: #fff; color: var(--ink); }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 
   .row-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 32px; }
@@ -146,9 +152,8 @@ const steps = [
     .steps li, .steps li + li { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
   }
   @media (max-width: 600px) {
-    .hero { min-height: 0; grid-template-rows: 300px auto; }
-    .hero :global(.hero__photo) { position: relative; grid-row: 1; }
-    .hero__card { grid-row: 2; margin: -48px 16px 0; padding: 28px 20px; }
+    .hero { min-height: 560px; }
+    .hero::after { background: linear-gradient(0deg, rgba(27,20,22,.65) 0%, rgba(27,20,22,.2) 60%, rgba(27,20,22,0) 100%); }
     .tiles { gap: 12px; }
     .row-head { flex-direction: column; align-items: start; }
   }
