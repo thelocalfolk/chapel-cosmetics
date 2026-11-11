@@ -70,6 +70,28 @@ export const focusAreas: FocusArea[] = [
   },
 ];
 
+export type TeamMember = { name: string; role: string; bio: string[]; photo?: string };
+
+export const team: TeamMember[] = [
+  {
+    name: 'Claudia',
+    role: 'Cosmetic nurse & founder',
+    bio: [
+      'Claudia is an incredibly professional cosmetic nurse with an innate ability to make her clients feel safe and relaxed throughout their treatment.',
+      "Her knowledge of the science behind her products, and her ability to explain it in plain language, means every client is well informed about their treatment. Alongside her professionalism and extensive product knowledge, Claudia makes each client's experience unique and enjoyable, while achieving their desired result.",
+    ],
+  },
+  {
+    name: 'Ellie',
+    role: 'Cosmetic injector',
+    // TODO: replace with Ellie's real bio and qualifications
+    bio: [
+      "Ellie is a cosmetic injector who shares Chapel Cosmetics' focus on natural, balanced results and genuine, personal care.",
+      'She takes the time to understand each client and their goals, so every treatment plan feels considered, comfortable and tailored to you.',
+    ],
+  },
+];
+
 export const testimonials = [
   'I cannot recommend Claudia highly enough and will be returning (and referring family and friends) to Chapel Cosmetics as I know that I will receive an extremely high quality service with absolutely incredible results. Thank you Claudia for making what could have been a stressful experience a fantastically enjoyable one.',
   'I recently attended a return appointment with Claudia and was extremely impressed with her ability to maintain her usual practice whilst adhering to strict protocols.',

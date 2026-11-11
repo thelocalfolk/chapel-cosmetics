@@ -6,8 +6,8 @@ import { site, hours, testimonials, focusAreas } from '../data/site';
 const concerns = focusAreas.map((f) => ({ title: f.title, text: f.summary, href: `/treatments#${f.slug}`, label: f.label }));
 const steps = [
   { n: 'Step 01', tag: 'Consult', eyebrow: 'Start with a conversation', title: 'Your consult', text: 'Every treatment starts with a one-on-one chat about your skin, your concerns and the result you want. No pressure, just honest advice.', cta: 'Book a consult', href: site.bookingUrl },
-  { n: 'Step 02', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Claudia builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
-  { n: 'Step 03', tag: 'Ongoing care', eyebrow: 'Every single visit', title: 'Consistent care', text: 'The same high standard every time, in a private, relaxed clinic on Chapel St. We track your progress and adjust as your skin changes.', cta: 'Meet Claudia', href: '/about' },
+  { n: 'Step 02', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Our team builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
+  { n: 'Step 03', tag: 'Ongoing care', eyebrow: 'Every single visit', title: 'Consistent care', text: 'The same high standard every time, in a private, relaxed clinic on Chapel St. We track your progress and adjust as your skin changes.', cta: 'Meet the team', href: '/about' },
 ];
 ---
 <Base>
@@ -46,12 +46,12 @@ const steps = [
 
   <section class="section section--cream">
     <div class="wrap split">
-      <Photo label="Claudia in clinic" ratio="4 / 5" />
+      <Photo label="Claudia and Ellie in clinic" ratio="4 / 5" />
       <div class="split__text">
-        <p class="eyebrow">Meet Claudia</p>
+        <p class="eyebrow">Meet the team</p>
         <h2>A personal experience, <em>every single visit.</em></h2>
-        <p>Claudia is a cosmetic nurse with a gift for making clients feel safe and relaxed. She knows the science behind every product she uses, and she explains it clearly so you always know what's happening and why.</p>
-        <a class="link-arrow" href="/about">About Chapel Cosmetics</a>
+        <p>Chapel Cosmetics is home to cosmetic nurse Claudia and cosmetic injector Ellie. Both share a gift for making clients feel safe and relaxed, and a commitment to explaining every treatment clearly, so you always know what's happening and why.</p>
+        <a class="link-arrow" href="/about">Meet Claudia & Ellie</a>
       </div>
     </div>
   </section>
