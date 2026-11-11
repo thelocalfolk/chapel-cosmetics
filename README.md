@@ -8,7 +8,7 @@ Almost everything you'd want to change lives in **`src/data/site.ts`**:
 
 - phone, email, address, Instagram
 - opening hours
-- treatment names, concerns and prices
+- treatment focus areas (`focusAreas`)
 - booking link (`bookingUrl`), booking embed (`bookingEmbedUrl`) and gift card link (`giftCardUrl`)
 - testimonials
 
@@ -28,4 +28,4 @@ Vercel builds every push to `main` automatically (framework preset: Astro). Old 
 
 ## Compliance note
 
-The TGA doesn't allow advertising of prescription (Schedule 4) cosmetic medicines. Only list laser and IPL prices; injectables stay as "contact us".
+The TGA doesn't allow advertising of prescription (Schedule 4) cosmetic medicines. Keep treatment copy concern-led (skin quality, fine lines, texture), never name products, brands or injectables, and don't publish prices. Don't mention laser or IPL anywhere on the site.

@@ -4,7 +4,7 @@ export const site = {
   name: 'Chapel Cosmetics',
   tagline: "We're here to help you feel confident in your own skin.",
   description:
-    'Cosmetic nurse clinic on Chapel St, Prahran. Laser and IPL skin treatments with a personal, consistent experience every visit.',
+    'Nurse-led cosmetic medicine on Chapel St, Prahran, focused on healthy, natural-looking skin quality and a personal, consistent experience every visit.',
   phone: '+61 430 037 293',
   phoneDisplay: '0430 037 293',
   email: '', // TODO: add clinic email
@@ -28,39 +28,45 @@ export const hours: { day: string; time: string }[] = [
   { day: 'Sunday', time: 'Closed' },
 ];
 
-export type Treatment = { name: string; concerns: string; single: string; course?: string };
-export type TreatmentGroup = {
-  slug: string;
-  title: string;
-  device: string;
-  intro: string;
-  courseLabel: string;
-  items: Treatment[];
-};
+// Keep this list concern-led. The TGA doesn't allow advertising prescription cosmetic
+// medicines, so never name products, brands or injectables, and don't list prices here.
+export type FocusArea = { slug: string; title: string; label: string; summary: string; text: string };
 
-export const treatmentGroups: TreatmentGroup[] = [
+export const focusAreas: FocusArea[] = [
   {
-    slug: 'laser',
-    title: 'Harmony XL Pro Laser',
-    device: 'ClearSkin Pro',
-    intro: 'Non-invasive laser treatment for active acne, texture and scarring, and to stimulate new collagen.',
-    courseLabel: 'Course of 4–6',
-    items: [
-      { name: 'Active Acne', concerns: 'Acne vulgaris', single: '$300', course: '$1,100 – $1,700' },
-      { name: 'Skin Rejuvenation', concerns: 'Wrinkles, fine lines, skin laxity, neocollagenesis', single: '$499', course: '$1,900 – $2,900' },
-      { name: 'Scarring', concerns: 'Acne and surgical scars', single: '$400', course: '$1,500 – $2,300' },
-    ],
+    slug: 'fine-lines-wrinkles',
+    title: 'Fine lines & wrinkles',
+    label: 'Fine lines',
+    summary: 'Soft, natural-looking results',
+    text: 'Softening the look of fine lines and wrinkles for a refreshed, rested appearance that still looks like you. Treatment options are discussed in consultation.',
   },
   {
-    slug: 'ipl',
-    title: 'IPL Treatments',
-    device: 'DYE-VL',
-    intro: 'Intense pulsed light for redness, capillaries and pigmentation.',
-    courseLabel: 'Course of 3–6',
-    items: [
-      { name: 'Superficial Vascular & Pigment', concerns: 'Rosacea, capillaries and vessels, pigment, sun damage, certain birthmarks', single: '$359', course: '$1,000 – $2,100' },
-      { name: 'Singular Spot Treatment', concerns: 'Burst capillary, localised pigment', single: '$200' },
-    ],
+    slug: 'skin-needling',
+    title: 'Skin needling',
+    label: 'Skin needling',
+    summary: 'Texture, tone and renewal',
+    text: "Also known as collagen induction therapy. Fine micro-needles stimulate the skin's natural renewal to improve texture, scarring, fine lines and overall skin quality.",
+  },
+  {
+    slug: 'prp-prf',
+    title: 'PRP / PRF',
+    label: 'PRP / PRF',
+    summary: 'Your own regenerative boost',
+    text: "Uses platelet-rich plasma or fibrin taken from your own blood to support the skin's natural regeneration. Often paired with skin needling for a skin quality boost.",
+  },
+  {
+    slug: 'skin-boosters',
+    title: 'Skin boosters',
+    label: 'Skin boosters',
+    summary: 'Hydration and glow',
+    text: 'Treatments focused on deep hydration and overall skin quality, for skin that looks plumper, smoother and more radiant. Options are discussed in consultation.',
+  },
+  {
+    slug: 'volume-loss',
+    title: 'Volume loss',
+    label: 'Volume loss',
+    summary: 'Balanced, natural restoration',
+    text: 'Addressing the natural changes in facial volume that come with time, with a focus on balance, harmony and subtle, natural-looking results. Options are discussed in consultation.',
   },
 ];
 

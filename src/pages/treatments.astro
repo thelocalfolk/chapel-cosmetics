@@ -1,57 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
-import { site, treatmentGroups } from '../data/site';
+import { site, focusAreas } from '../data/site';
 ---
-<Base title="Treatments" description="Harmony XL Pro laser and IPL skin treatments at Chapel Cosmetics, Prahran. Prices for acne, skin rejuvenation, scarring, redness and pigment.">
+<Base title="Treatments" description="Nurse-led cosmetic medicine at Chapel Cosmetics, Prahran, focused on skin quality, fine lines, texture and tone.">
   <header class="page-head">
     <div class="wrap">
       <p class="eyebrow">Treatments</p>
-      <h1>Skin treatments</h1>
-      <p>Laser and IPL treatments for acne, texture, scarring, redness and pigment. Every course is tailored to you at your consult.</p>
+      <h1>Cosmetic medicine</h1>
+      <p>Personalised, nurse-led cosmetic medicine focused on skin quality. Every treatment plan starts with a consult and is tailored to you.</p>
     </div>
   </header>
 
-  <nav class="jump wrap" aria-label="Treatment categories">
-    {treatmentGroups.map((g) => <a href={`#${g.slug}`}>{g.title}</a>)}
-    <a href="#other">Other treatments</a>
+  <nav class="jump wrap" aria-label="Focus areas">
+    {focusAreas.map((f) => <a href={`#${f.slug}`}>{f.title}</a>)}
   </nav>
 
-  {treatmentGroups.map((group, i) => (
-    <section id={group.slug} class:list={['section', 'group', { 'section--cream': i % 2 === 1 }]}>
-      <div class="wrap group__grid">
-        <div class="group__intro">
-          <Photo label={group.title} ratio="1 / 1" />
-          <p class="eyebrow">{group.device}</p>
-          <h2>{group.title}</h2>
-          <p>{group.intro}</p>
-        </div>
-        <ul class="list">
-          {group.items.map((t) => (
-            <li class="item">
-              <div class="item__main">
-                <h3>{t.name}</h3>
-                <p>{t.concerns}</p>
-              </div>
-              <dl class="item__prices">
-                <div><dt>Single</dt><dd>{t.single}</dd></div>
-                {t.course && <div><dt>{group.courseLabel}</dt><dd>{t.course}</dd></div>}
-              </dl>
-              <a class="btn btn--ghost item__book" href={site.bookingUrl}>Book</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  ))}
+  <section class="section">
+    <div class="wrap">
+      <ul class="areas">
+        {focusAreas.map((f) => (
+          <li id={f.slug} class="area">
+            <Photo label={f.label} ratio="4 / 3" />
+            <div class="area__text">
+              <p class="eyebrow">{f.summary}</p>
+              <h2>{f.title}</h2>
+              <p>{f.text}</p>
+              <a class="link-arrow" href={site.bookingUrl}>Book a consult</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-  <section id="other" class="section section--blush">
+  <section id="more" class="section section--blush">
     <div class="narrow other">
-      <p class="eyebrow">Cosmetic injectables</p>
-      <h2>Ask us about other treatments</h2>
-      <p>The Therapeutic Goods Administration does not allow the advertising of cosmetic medicine. Please contact us to talk about what's right for you.</p>
+      <p class="eyebrow">Good to know</p>
+      <h2>Let's talk about your skin</h2>
+      <p>The Therapeutic Goods Administration does not allow the advertising of cosmetic medicine, so treatment details and pricing are discussed in consultation. Get in touch and we'll talk through what's right for you.</p>
       <div class="other__actions">
-        <a class="btn" href="/find">Contact us</a>
+        <a class="btn" href={site.bookingUrl}>Book a consult</a>
         <a class="btn btn--ghost" href={`tel:${site.phone.replace(/\s/g, '')}`}>Call {site.phoneDisplay}</a>
       </div>
     </div>
@@ -59,35 +48,19 @@ import { site, treatmentGroups } from '../data/site';
 </Base>
 
 <style>
-  .jump { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding-top: 24px; padding-bottom: 24px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding-top: 24px; padding-bottom: 8px; }
   .jump a { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--line); padding: 10px 16px; border-radius: 999px; }
   .jump a:hover { border-color: var(--ink); }
-  .group { scroll-margin-top: 120px; }
-  .group__grid { display: grid; grid-template-columns: 360px 1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
-  .group__intro .eyebrow { margin-top: 24px; }
-  .group__intro h2 { font-size: clamp(30px, 3.5vw, 40px); margin: 8px 0 12px; }
-  .group__intro p:not(.eyebrow) { color: var(--ink-soft); }
-  .list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-  .item { display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--line); }
-  .item h3 { font-family: var(--sans); font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-  .item__main p { margin: 0; color: var(--ink-soft); font-size: 14px; }
-  .item__prices { display: flex; gap: 28px; margin: 0; text-align: right; }
-  .item__prices dt { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
-  .item__prices dd { margin: 2px 0 0; font-weight: 600; letter-spacing: -0.01em; font-size: 20px; white-space: nowrap; }
-  .item__book { min-height: 40px; padding: 0 20px; }
-  .other { text-align: center; scroll-margin-top: 120px; }
+  .areas { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(48px, 7vw, 96px); }
+  .area { scroll-margin-top: 140px; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .area:nth-child(even) :global(.photo) { order: 2; }
+  .area :global(.photo) { border-radius: 20px; }
+  .area__text { max-width: 480px; }
+  .area h2 { font-size: clamp(32px, 3.6vw, 48px); margin: 8px 0 12px; }
+  .area__text p:not(.eyebrow) { color: var(--ink-soft); margin-bottom: 20px; }
+  .other { text-align: center; }
   .other h2 { font-size: clamp(30px, 4vw, 44px); margin: 12px 0 16px; }
   .other p:not(.eyebrow) { color: var(--ink-soft); }
   .other__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 24px; }
-  @media (max-width: 900px) {
-    .group__grid { grid-template-columns: 1fr; }
-    .group__intro { display: grid; grid-template-columns: 120px 1fr; column-gap: 20px; align-items: start; }
-    .group__intro :global(.photo) { grid-row: span 3; }
-    .group__intro .eyebrow { margin-top: 0; }
-  }
-  @media (max-width: 600px) {
-    .item { grid-template-columns: 1fr; gap: 14px; }
-    .item__prices { text-align: left; }
-    .item__book { justify-self: start; }
-  }
+  @media (max-width: 760px) { .area { grid-template-columns: 1fr; gap: 20px; } .area:nth-child(even) :global(.photo) { order: 0; } }
 </style>

@@ -1,14 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
-import { site, hours, testimonials } from '../data/site';
+import { site, hours, testimonials, focusAreas } from '../data/site';
 
-const concerns = [
-  { title: 'Active acne', text: 'Laser treatment for breakouts', href: '/treatments#laser', label: 'Acne' },
-  { title: 'Fine lines & texture', text: 'Skin rejuvenation and collagen', href: '/treatments#laser', label: 'Rejuvenation' },
-  { title: 'Scarring', text: 'Acne and surgical scars', href: '/treatments#laser', label: 'Scarring' },
-  { title: 'Redness & pigment', text: 'IPL for rosacea, capillaries and sun damage', href: '/treatments#ipl', label: 'IPL' },
-];
+const concerns = focusAreas.map((f) => ({ title: f.title, text: f.summary, href: `/treatments#${f.slug}`, label: f.label }));
 const steps = [
   { n: 'Step 01', tag: 'Consult', eyebrow: 'Start with a conversation', title: 'Your consult', text: 'Every treatment starts with a one-on-one chat about your skin, your concerns and the result you want. No pressure, just honest advice.', cta: 'Book a consult', href: site.bookingUrl },
   { n: 'Step 02', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Claudia builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
@@ -19,9 +14,9 @@ const steps = [
   <section class="hero">
     <Photo label="Hero image" ratio="auto" class="hero__photo" />
     <div class="hero__content wrap">
-      <p class="eyebrow">Cosmetic nurse · Prahran</p>
+      <p class="eyebrow">Cosmetic medicine · Prahran</p>
       <h1>Feel confident in <em>your own skin.</em></h1>
-      <p>Personalised laser and IPL treatments on Chapel St, tailored to your concerns with high-quality, consistent care every visit.</p>
+      <p>Nurse-led cosmetic medicine on Chapel St, focused on healthy, natural-looking skin quality. Every plan is tailored to you, with consistent care every visit.</p>
       <div class="hero__actions">
         <a class="btn btn--light" href={site.bookingUrl}>Book an appointment</a>
         <a class="btn btn--outline-light" href="/treatments">View treatments</a>
@@ -32,7 +27,7 @@ const steps = [
   <section class="section">
     <div class="wrap">
       <div class="row-head">
-        <h2>Treat by concern</h2>
+        <h2>Our treatments</h2>
         <a class="link-arrow" href="/treatments">All treatments</a>
       </div>
       <ul class="tiles">
@@ -189,7 +184,7 @@ const steps = [
 
   .row-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 32px; }
   .row-head h2, .split h2, .visit h2 { font-size: clamp(30px, 4vw, 46px); }
-  .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
   .tile { display: block; text-decoration: none; }
   .tile h3 { font-family: var(--sans); font-size: 15px; font-weight: 700; margin: 16px 0 4px; }
   .tile p { font-size: 14px; color: var(--ink-soft); margin: 0; }
@@ -239,6 +234,7 @@ const steps = [
   .visit__hours dt, .visit__hours dd { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
   .visit__map { width: 100%; min-height: 380px; border: 0; background: var(--cream); }
 
+  @media (max-width: 1100px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px) {
     .tiles { grid-template-columns: repeat(2, 1fr); }
     .split, .visit { grid-template-columns: 1fr; }
