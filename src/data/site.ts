@@ -43,7 +43,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'skin-needling',
-    image: '/images/skin-needling.jpg',
+    image: '/images/skin-boosters.jpg',
     title: 'Skin needling',
     label: 'Skin needling',
     summary: 'Texture, tone and renewal',
@@ -59,7 +59,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'skin-boosters',
-    image: '/images/skin-boosters.jpg',
+    image: '/images/skin-needling.jpg',
     title: 'Skin boosters',
     label: 'Skin boosters',
     summary: 'Hydration and glow',
