@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+const policies = [
+  { title: '$50 deposit', text: "A flat $50 deposit is taken for all appointment types, except 'initial consult only'. Only the deposit is listed next to each appointment type, and it comes off your total at the end of your appointment in clinic." },
+  { title: 'Pricing', text: 'The price of each appointment varies with your individual requirements, and is confirmed with you in clinic.' },
+  { title: 'Prescriptions', text: 'As some products used are Schedule 4 medicines, a prescription is obtained during your initial consult. Chapel Cosmetics arranges this with our partner doctors. It takes a minute, costs $25 and is valid for 12 months.' },
+  { title: 'Changes & cancellations', text: 'Deposits carry over if you reschedule with at least 24 hours notice. Deposits are non-refundable for cancellations and no-shows.' },
+];
+---
+<Base title="Book an appointment" description="Book your appointment at Chapel Cosmetics, 217 Chapel St, Prahran.">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Bookings</p>
+      <h1>Book your appointment</h1>
+      <p>Choose a time below. Not sure which treatment is right for you? Start with an initial consult.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap book">
+      <div class="book__widget">
+        {site.bookingEmbedUrl ? (
+          <iframe src={site.bookingEmbedUrl} title="Online booking" loading="lazy"></iframe>
+        ) : (
+          <div class="book__placeholder">
+            <p class="eyebrow">Online booking</p>
+            <p>Online booking is coming soon. In the meantime, call or message us to book.</p>
+            <a class="btn" href={`tel:${site.phone.replace(/\s/g, '')}`}>Call {site.phoneDisplay}</a>
+          </div>
+        )}
+      </div>
+      <aside class="book__policy">
+        <p class="eyebrow">Good to know</p>
+        {policies.map((p) => (<div><h2>{p.title}</h2><p>{p.text}</p></div>))}
+        <a class="link-arrow" href="/find">Questions? Contact us</a>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .book { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .book__widget iframe { width: 100%; min-height: 760px; border: 1px solid var(--line); }
+  .book__placeholder { background: var(--cream); padding: clamp(32px, 5vw, 64px); text-align: center; min-height: 360px; display: grid; place-content: center; gap: 8px; justify-items: center; }
+  .book__placeholder p:not(.eyebrow) { color: var(--ink-soft); max-width: 380px; }
+  .book__policy { border-top: 1px solid var(--ink); padding-top: 20px; position: sticky; top: 140px; }
+  .book__policy > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .book__policy h2 { font-family: var(--sans); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .book__policy p { font-size: 14px; color: var(--ink-soft); margin: 0; }
+  .book__policy .link-arrow { display: inline-block; margin-top: 20px; }
+  @media (max-width: 900px) { .book { grid-template-columns: 1fr; } .book__policy { position: static; } }
+</style>

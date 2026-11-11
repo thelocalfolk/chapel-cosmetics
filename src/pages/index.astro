@@ -1,0 +1,155 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site, hours, testimonials } from '../data/site';
+
+const concerns = [
+  { title: 'Active acne', text: 'Laser treatment for breakouts', href: '/treatments#laser', label: 'Acne' },
+  { title: 'Fine lines & texture', text: 'Skin rejuvenation and collagen', href: '/treatments#laser', label: 'Rejuvenation' },
+  { title: 'Scarring', text: 'Acne and surgical scars', href: '/treatments#laser', label: 'Scarring' },
+  { title: 'Redness & pigment', text: 'IPL for rosacea, capillaries and sun damage', href: '/treatments#ipl', label: 'IPL' },
+];
+const steps = [
+  { n: '01', title: 'Consult', text: 'Every treatment starts with a conversation about your skin, your concerns and the result you want.' },
+  { n: '02', title: 'Your plan', text: 'Claudia tailors a plan to you and explains exactly how and why it works, in plain language.' },
+  { n: '03', title: 'Consistent care', text: 'The same high standard every visit, in a private, relaxed clinic on Chapel St.' },
+];
+---
+<Base>
+  <section class="hero">
+    <Photo label="Hero image" ratio="auto" class="hero__photo" />
+    <div class="hero__card">
+      <p class="eyebrow">Cosmetic nurse · Prahran</p>
+      <h1>Feel confident in <em>your own skin.</em></h1>
+      <p>Personalised laser and IPL treatments on Chapel St, tailored to your concerns with high-quality, consistent care every visit.</p>
+      <div class="hero__actions">
+        <a class="btn" href={site.bookingUrl}>Book an appointment</a>
+        <a class="btn btn--ghost" href="/treatments">View treatments</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="row-head">
+        <h2>Treat by concern</h2>
+        <a class="link-arrow" href="/treatments">All treatments</a>
+      </div>
+      <ul class="tiles">
+        {concerns.map((c) => (
+          <li>
+            <a href={c.href} class="tile">
+              <Photo label={c.label} ratio="3 / 4" />
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="wrap split">
+      <Photo label="Claudia in clinic" ratio="4 / 5" />
+      <div class="split__text">
+        <p class="eyebrow">Meet Claudia</p>
+        <h2>A personal experience, <em>every single visit.</em></h2>
+        <p>Claudia is a cosmetic nurse with a gift for making clients feel safe and relaxed. She knows the science behind every product she uses, and she explains it clearly so you always know what's happening and why.</p>
+        <a class="link-arrow" href="/about">About Chapel Cosmetics</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow center">How it works</p>
+      <ol class="steps">
+        {steps.map((s) => (
+          <li><span class="steps__n">{s.n}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--blush quote">
+    <div class="narrow">
+      <p class="eyebrow">Client love</p>
+      <blockquote>“{testimonials[0]}”</blockquote>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap visit">
+      <div>
+        <p class="eyebrow">Visit us</p>
+        <h2>{site.address.street}, {site.address.suburb}</h2>
+        <p class="visit__lead">In the heart of Chapel St, Melbourne.</p>
+        <dl class="visit__hours">
+          {hours.map((h) => (<><dt>{h.day}</dt><dd>{h.time}</dd></>))}
+        </dl>
+        <div class="hero__actions">
+          <a class="btn" href={site.bookingUrl}>Book now</a>
+          <a class="btn btn--ghost" href={`tel:${site.phone.replace(/\s/g, '')}`}>Call {site.phoneDisplay}</a>
+        </div>
+      </div>
+      <iframe class="visit__map" title="Map showing Chapel Cosmetics" src={site.mapsEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  em { font-style: italic; color: var(--burgundy); }
+  .center { text-align: center; }
+  .hero { position: relative; display: grid; min-height: min(78vh, 720px); }
+  .hero :global(.hero__photo) { position: absolute; inset: 0; aspect-ratio: auto; }
+  .hero__card { position: relative; align-self: end; margin: var(--gutter); max-width: 520px; background: #fff; padding: clamp(28px, 4vw, 48px); }
+  .hero h1 { font-size: clamp(38px, 5vw, 60px); margin: 14px 0 18px; }
+  .hero__card > p:not(.eyebrow) { color: var(--ink-soft); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+  .row-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 32px; }
+  .row-head h2, .split h2, .visit h2 { font-size: clamp(30px, 4vw, 46px); }
+  .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .tile { display: block; text-decoration: none; }
+  .tile h3 { font-family: var(--sans); font-size: 15px; font-weight: 700; margin: 16px 0 4px; }
+  .tile p { font-size: 14px; color: var(--ink-soft); margin: 0; }
+  .tile :global(.photo) { transition: opacity .2s; }
+  .tile:hover :global(.photo) { opacity: .85; }
+  .tile:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .split__text h2 { margin: 14px 0 20px; }
+  .split__text p:not(.eyebrow) { color: var(--ink-soft); max-width: 480px; margin-bottom: 28px; }
+
+  .steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .steps li { padding: 32px 32px 0 0; }
+  .steps li + li { padding-left: 32px; border-left: 1px solid var(--line); }
+  .steps__n { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .1em; }
+  .steps h3 { font-size: 28px; margin: 12px 0; }
+  .steps p { color: var(--ink-soft); font-size: 15px; }
+
+  .quote { text-align: center; }
+  .quote blockquote { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.35; margin: 20px 0 0; color: var(--burgundy); }
+
+  .visit { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(32px, 6vw, 80px); align-items: stretch; }
+  .visit h2 { margin: 14px 0 8px; }
+  .visit__lead { color: var(--ink-soft); }
+  .visit__hours { display: grid; grid-template-columns: 1fr auto; margin: 24px 0 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .visit__hours dt, .visit__hours dd { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .visit__map { width: 100%; min-height: 380px; border: 0; background: var(--cream); }
+
+  @media (max-width: 900px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .split, .visit { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .steps li, .steps li + li { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 600px) {
+    .hero { min-height: 0; grid-template-rows: 300px auto; }
+    .hero :global(.hero__photo) { position: relative; grid-row: 1; }
+    .hero__card { grid-row: 2; margin: -48px 16px 0; padding: 28px 20px; }
+    .tiles { gap: 12px; }
+    .row-head { flex-direction: column; align-items: start; }
+  }
+</style>
