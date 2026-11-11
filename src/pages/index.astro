@@ -67,23 +67,38 @@ const steps = [
         <p class="eyebrow">How it works</p>
         <h2>Your skin journey</h2>
       </div>
-      <ol class="timeline">
-        {steps.map((s) => (
-          <li class="timeline__item">
-            <div class="timeline__media">
-              <Photo label={s.tag} ratio="1 / 1" />
-              <span class="timeline__tag">{s.n}</span>
-            </div>
-            <span class="timeline__dot" aria-hidden="true"></span>
-            <div class="timeline__text">
-              <p class="timeline__eyebrow">{s.eyebrow}</p>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-              <a class="pill" href={s.href}>{s.cta}</a>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div class="journey">
+        <div class="journey__media" aria-hidden="true">
+          <div class="journey__frame">
+            {steps.map((s, i) => (
+              <div class:list={['journey__img', { 'is-active': i === 0 }]} data-i={i}>
+                <Photo label={s.tag} ratio="1 / 1" />
+              </div>
+            ))}
+            <span class="timeline__tag journey__tag">{steps[0].n}</span>
+          </div>
+        </div>
+        <div class="journey__rail" aria-hidden="true">
+          <span class="journey__fill"></span>
+          <span class="journey__dot"></span>
+        </div>
+        <ol class="journey__steps">
+          {steps.map((s, i) => (
+            <li class:list={['journey__step', { 'is-active': i === 0 }]} data-i={i} data-tag={s.n}>
+              <div class="journey__mobile-media">
+                <Photo label={s.tag} ratio="1 / 1" />
+                <span class="timeline__tag">{s.n}</span>
+              </div>
+              <div class="timeline__text">
+                <p class="timeline__eyebrow">{s.eyebrow}</p>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+                <a class="pill" href={s.href}>{s.cta}</a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -113,7 +128,50 @@ const steps = [
   </section>
 </Base>
 
+<script>
+  const journey = document.querySelector<HTMLElement>('.journey');
+  if (journey) {
+    const steps = [...journey.querySelectorAll<HTMLElement>('.journey__step')];
+    const imgs = [...journey.querySelectorAll<HTMLElement>('.journey__img')];
+    const tag = journey.querySelector<HTMLElement>('.journey__tag');
+    const rail = journey.querySelector<HTMLElement>('.journey__rail');
+    let active = 0;
+    const setActive = (i: number) => {
+      if (i === active) return;
+      active = i;
+      steps.forEach((el, j) => el.classList.toggle('is-active', j === i));
+      imgs.forEach((el, j) => el.classList.toggle('is-active', j === i));
+      if (tag) tag.textContent = steps[i].dataset.tag ?? '';
+    };
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const mid = window.innerHeight / 2;
+      let best = 0, bestDist = Infinity;
+      steps.forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActive(best);
+      if (rail) {
+        const r = rail.getBoundingClientRect();
+        const dotY = mid + (window.innerWidth > 900 ? 62 : 0);
+        const p = Math.min(1, Math.max(0, (dotY - r.top) / r.height));
+        rail.style.setProperty('--p', p.toFixed(4));
+      }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>
+
 <style>
+  @media (prefers-reduced-motion: reduce) {
+    .journey__img, .journey__step { transition: none; }
+  }
   em { font-style: normal; color: var(--burgundy); }
   .center { text-align: center; }
   .hero { position: relative; display: grid; align-items: end; min-height: min(80vh, 760px); color: #fff; }
@@ -145,13 +203,25 @@ const steps = [
 
   .how__head { text-align: center; margin-bottom: clamp(40px, 6vw, 72px); }
   .how__head h2 { font-size: clamp(30px, 4vw, 46px); margin-top: 12px; }
-  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
-  .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px dashed rgba(97,18,40,.3); transform: translateX(-1px); }
-  .timeline__item { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 9vw, 140px); align-items: center; padding: clamp(24px, 3vw, 40px) 0; }
-  .timeline__media { position: relative; border-radius: 28px; overflow: hidden; max-width: 520px; justify-self: end; width: 100%; }
-  .timeline__media :global(.photo) { border-radius: 28px; }
+  .journey { display: grid; grid-template-columns: 1fr 80px 1fr; column-gap: clamp(16px, 4vw, 60px); }
+  .journey__media { position: relative; }
+  .journey__frame { --fs: min(520px, calc(100vh - 220px)); position: sticky; top: calc(62px + 50vh - var(--fs) / 2); width: min(100%, var(--fs)); margin-left: auto; aspect-ratio: 1 / 1; border-radius: 28px; overflow: hidden; }
+  /* Placeholder tints so the image change is visible until real photos land */
+  .journey__img[data-i='1'] :global(.photo) { background: linear-gradient(200deg, var(--petal), #e9b7c9); }
+  .journey__img[data-i='2'] :global(.photo) { background: linear-gradient(160deg, var(--cream), #e7c9b8); }
+  .journey__img { position: absolute; inset: 0; opacity: 0; transform: scale(1.06); transition: opacity .7s ease, transform 1.2s ease; }
+  .journey__img.is-active { opacity: 1; transform: scale(1); }
+  .journey__img :global(.photo) { height: 100%; border-radius: 28px; }
+  .journey__tag { z-index: 2; transition: opacity .3s; }
   .timeline__tag { position: absolute; top: 20px; left: 20px; padding: 8px 16px; border-radius: 999px; background: rgba(27,20,22,.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; font-size: 14px; font-weight: 500; }
-  .timeline__dot { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: var(--burgundy); transform: translate(-50%, -50%); box-shadow: 0 0 0 6px var(--cream); }
+  .journey__rail { position: relative; }
+  .journey__rail::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px dashed rgba(97,18,40,.3); transform: translateX(-1px); }
+  .journey__fill { position: absolute; top: 0; left: 50%; width: 2px; height: calc(var(--p, 0) * 100%); background: var(--burgundy); transform: translateX(-1px); }
+  .journey__dot { position: sticky; top: calc(50vh + 51px); display: block; width: 22px; height: 22px; margin: 0 auto; border-radius: 50%; background: var(--burgundy); box-shadow: 0 0 0 6px var(--cream); z-index: 1; }
+  .journey__steps { list-style: none; margin: 0; padding: 0; }
+  .journey__step { min-height: 78vh; display: flex; align-items: center; opacity: .3; transition: opacity .5s ease; }
+  .journey__step.is-active { opacity: 1; }
+  .journey__mobile-media { display: none; }
   .timeline__text { max-width: 500px; }
   .timeline__eyebrow { color: var(--burgundy); font-weight: 700; font-size: 17px; margin-bottom: 10px; }
   .timeline__text h3 { font-size: clamp(36px, 4.6vw, 60px); margin-bottom: 16px; }
@@ -172,10 +242,12 @@ const steps = [
   @media (max-width: 900px) {
     .tiles { grid-template-columns: repeat(2, 1fr); }
     .split, .visit { grid-template-columns: 1fr; }
-    .timeline::before { left: 10px; }
-    .timeline__item { grid-template-columns: 1fr; gap: 24px; padding: 0 0 48px 44px; }
-    .timeline__media { justify-self: start; }
-    .timeline__dot { left: 11px; top: 28px; }
+    .journey { grid-template-columns: 24px 1fr; column-gap: 20px; }
+    .journey__media { display: none; }
+    .journey__dot { top: calc(50vh - 11px); }
+    .journey__step { min-height: 0; display: block; padding-bottom: 56px; opacity: 1; }
+    .journey__mobile-media { display: block; position: relative; margin-bottom: 24px; border-radius: 28px; overflow: hidden; }
+    .journey__mobile-media :global(.photo) { border-radius: 28px; }
   }
   @media (max-width: 600px) {
     .hero { min-height: 560px; }
