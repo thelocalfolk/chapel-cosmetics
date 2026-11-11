@@ -90,10 +90,10 @@ export const team: TeamMember[] = [
   {
     name: 'Ellie',
     photo: '/images/team-b.jpg', // TODO: confirm this is Ellie
-    role: 'Cosmetic injector',
+    role: 'Cosmetic nurse',
     // TODO: replace with Ellie's real bio and qualifications
     bio: [
-      "Ellie is a cosmetic injector who shares Chapel Cosmetics' focus on natural, balanced results and genuine, personal care.",
+      "Ellie is a cosmetic nurse who shares Chapel Cosmetics' focus on natural, balanced results and genuine, personal care.",
       'She takes the time to understand each client and their goals, so every treatment plan feels considered, comfortable and tailored to you.',
     ],
   },
