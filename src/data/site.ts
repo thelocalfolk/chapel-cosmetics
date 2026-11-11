@@ -19,7 +19,7 @@ export const site = {
 };
 
 export const hours: { day: string; time: string }[] = [
-  { day: 'Monday', time: 'Closed' },
+  { day: 'Monday', time: '11am – 6pm' },
   { day: 'Tuesday', time: '11am – 6pm' },
   { day: 'Wednesday', time: '11am – 7pm' },
   { day: 'Thursday', time: '11am – 9pm' },
