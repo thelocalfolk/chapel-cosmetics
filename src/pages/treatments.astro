@@ -21,7 +21,7 @@ import { site, focusAreas } from '../data/site';
       <ul class="areas">
         {focusAreas.map((f) => (
           <li id={f.slug} class="area">
-            <Photo label={f.label} ratio="4 / 3" />
+            <Photo src={f.image} alt="" label={f.label} ratio="4 / 3" />
             <div class="area__text">
               <p class="eyebrow">{f.summary}</p>
               <h2>{f.title}</h2>

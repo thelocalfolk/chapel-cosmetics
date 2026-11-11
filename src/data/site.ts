@@ -30,11 +30,12 @@ export const hours: { day: string; time: string }[] = [
 
 // Keep this list concern-led. The TGA doesn't allow advertising prescription cosmetic
 // medicines, so never name products, brands or injectables, and don't list prices here.
-export type FocusArea = { slug: string; title: string; label: string; summary: string; text: string };
+export type FocusArea = { slug: string; title: string; label: string; summary: string; text: string; image?: string };
 
 export const focusAreas: FocusArea[] = [
   {
     slug: 'fine-lines-wrinkles',
+    image: '/images/fine-lines.jpg',
     title: 'Fine lines & wrinkles',
     label: 'Fine lines',
     summary: 'Soft, natural-looking results',
@@ -42,6 +43,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'skin-needling',
+    image: '/images/skin-needling.jpg',
     title: 'Skin needling',
     label: 'Skin needling',
     summary: 'Texture, tone and renewal',
@@ -49,6 +51,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'prp-prf',
+    image: '/images/prp.jpg',
     title: 'PRP / PRF',
     label: 'PRP / PRF',
     summary: 'Your own regenerative boost',
@@ -56,6 +59,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'skin-boosters',
+    image: '/images/skin-boosters.jpg',
     title: 'Skin boosters',
     label: 'Skin boosters',
     summary: 'Hydration and glow',
@@ -63,6 +67,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     slug: 'volume-loss',
+    image: '/images/volume-loss.jpg',
     title: 'Volume loss',
     label: 'Volume loss',
     summary: 'Balanced, natural restoration',
@@ -75,6 +80,7 @@ export type TeamMember = { name: string; role: string; bio: string[]; photo?: st
 export const team: TeamMember[] = [
   {
     name: 'Claudia',
+    photo: '/images/team-a.jpg', // TODO: confirm this is Claudia
     role: 'Cosmetic nurse & founder',
     bio: [
       'Claudia is an incredibly professional cosmetic nurse with an innate ability to make her clients feel safe and relaxed throughout their treatment.',
@@ -83,6 +89,7 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Ellie',
+    photo: '/images/team-b.jpg', // TODO: confirm this is Ellie
     role: 'Cosmetic injector',
     // TODO: replace with Ellie's real bio and qualifications
     bio: [

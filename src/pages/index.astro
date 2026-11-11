@@ -3,16 +3,16 @@ import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import { site, hours, testimonials, focusAreas } from '../data/site';
 
-const concerns = focusAreas.map((f) => ({ title: f.title, text: f.summary, href: `/treatments#${f.slug}`, label: f.label }));
+const concerns = focusAreas.map((f) => ({ title: f.title, text: f.summary, href: `/treatments#${f.slug}`, label: f.label, image: f.image }));
 const steps = [
-  { n: 'Step 01', tag: 'Consult', eyebrow: 'Start with a conversation', title: 'Your consult', text: 'Every treatment starts with a one-on-one chat about your skin, your concerns and the result you want. No pressure, just honest advice.', cta: 'Book a consult', href: site.bookingUrl },
-  { n: 'Step 02', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Our team builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
-  { n: 'Step 03', tag: 'Ongoing care', eyebrow: 'Every single visit', title: 'Consistent care', text: 'The same high standard every time, in a private, relaxed clinic on Chapel St. We track your progress and adjust as your skin changes.', cta: 'Meet the team', href: '/about' },
+  { n: 'Step 01', image: '/images/step-consult.jpg', tag: 'Consult', eyebrow: 'Start with a conversation', title: 'Your consult', text: 'Every treatment starts with a one-on-one chat about your skin, your concerns and the result you want. No pressure, just honest advice.', cta: 'Book a consult', href: site.bookingUrl },
+  { n: 'Step 02', image: '/images/step-plan.jpg', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Our team builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
+  { n: 'Step 03', image: '/images/step-care.jpg', tag: 'Ongoing care', eyebrow: 'Every single visit', title: 'Consistent care', text: 'The same high standard every time, in a private, relaxed clinic on Chapel St. We track your progress and adjust as your skin changes.', cta: 'Meet the team', href: '/about' },
 ];
 ---
 <Base>
   <section class="hero">
-    <Photo label="Hero image" ratio="auto" class="hero__photo" />
+    <Photo src="/images/hero.jpg" alt="" label="Hero image" ratio="auto" class="hero__photo" eager />
     <div class="hero__content wrap">
       <p class="eyebrow">Cosmetic medicine · Prahran</p>
       <h1>Feel confident in <em>your own skin.</em></h1>
@@ -34,7 +34,7 @@ const steps = [
         {concerns.map((c) => (
           <li>
             <a href={c.href} class="tile">
-              <Photo label={c.label} ratio="3 / 4" />
+              <Photo src={c.image} alt="" label={c.label} ratio="3 / 4" />
               <h3>{c.title}</h3>
               <p>{c.text}</p>
             </a>
@@ -46,7 +46,7 @@ const steps = [
 
   <section class="section section--cream">
     <div class="wrap split">
-      <Photo label="Claudia and Ellie in clinic" ratio="4 / 5" />
+      <Photo src="/images/team-together.jpg" alt="Claudia and Ellie at the Chapel Cosmetics reception" label="Claudia and Ellie in clinic" ratio="4 / 5" />
       <div class="split__text">
         <p class="eyebrow">Meet the team</p>
         <h2>A personal experience, <em>every single visit.</em></h2>
@@ -67,7 +67,7 @@ const steps = [
           <div class="journey__frame">
             {steps.map((s, i) => (
               <div class:list={['journey__img', { 'is-active': i === 0 }]} data-i={i}>
-                <Photo label={s.tag} ratio="1 / 1" />
+                <Photo src={s.image} alt="" label={s.tag} ratio="1 / 1" />
               </div>
             ))}
             <span class="timeline__tag journey__tag">{steps[0].n}</span>
@@ -81,7 +81,7 @@ const steps = [
           {steps.map((s, i) => (
             <li class:list={['journey__step', { 'is-active': i === 0 }]} data-i={i} data-tag={s.n}>
               <div class="journey__mobile-media">
-                <Photo label={s.tag} ratio="1 / 1" />
+                <Photo src={s.image} alt="" label={s.tag} ratio="1 / 1" />
                 <span class="timeline__tag">{s.n}</span>
               </div>
               <div class="timeline__text">

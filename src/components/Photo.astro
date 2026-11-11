@@ -1,8 +1,8 @@
 ---
 // Swap `src` in once real photography is available. Without it a styled placeholder shows.
-interface Props { src?: string; alt?: string; label?: string; ratio?: string; class?: string }
-const { src, alt = '', label = 'Photo', ratio = '4 / 5', class: className = '' } = Astro.props;
+interface Props { src?: string; alt?: string; label?: string; ratio?: string; class?: string; position?: string; eager?: boolean }
+const { src, alt = '', label = 'Photo', ratio = '4 / 5', class: className = '', position = 'center', eager = false } = Astro.props;
 ---
 <div class={`photo ${className}`} style={`--ratio:${ratio}`}>
-  {src ? <img src={src} alt={alt} loading="lazy" /> : <span class="photo__label" aria-hidden="true">{label}</span>}
+  {src ? <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={`object-position:${position}`} /> : <span class="photo__label" aria-hidden="true">{label}</span>}
 </div>
