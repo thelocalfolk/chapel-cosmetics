@@ -10,9 +10,9 @@ const concerns = [
   { title: 'Redness & pigment', text: 'IPL for rosacea, capillaries and sun damage', href: '/treatments#ipl', label: 'IPL' },
 ];
 const steps = [
-  { n: '01', title: 'Consult', text: 'Every treatment starts with a conversation about your skin, your concerns and the result you want.' },
-  { n: '02', title: 'Your plan', text: 'Claudia tailors a plan to you and explains exactly how and why it works, in plain language.' },
-  { n: '03', title: 'Consistent care', text: 'The same high standard every visit, in a private, relaxed clinic on Chapel St.' },
+  { n: 'Step 01', tag: 'Consult', eyebrow: 'Start with a conversation', title: 'Your consult', text: 'Every treatment starts with a one-on-one chat about your skin, your concerns and the result you want. No pressure, just honest advice.', cta: 'Book a consult', href: site.bookingUrl },
+  { n: 'Step 02', tag: 'Your plan', eyebrow: 'Tailored to you', title: 'A plan that fits', text: 'Claudia builds a treatment plan around you and explains exactly how and why it works, in plain language, so you always know what to expect.', cta: 'Explore treatments', href: '/treatments' },
+  { n: 'Step 03', tag: 'Ongoing care', eyebrow: 'Every single visit', title: 'Consistent care', text: 'The same high standard every time, in a private, relaxed clinic on Chapel St. We track your progress and adjust as your skin changes.', cta: 'Meet Claudia', href: '/about' },
 ];
 ---
 <Base>
@@ -61,12 +61,27 @@ const steps = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--cream how">
     <div class="wrap">
-      <p class="eyebrow center">How it works</p>
-      <ol class="steps">
+      <div class="how__head">
+        <p class="eyebrow">How it works</p>
+        <h2>Your skin journey</h2>
+      </div>
+      <ol class="timeline">
         {steps.map((s) => (
-          <li><span class="steps__n">{s.n}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+          <li class="timeline__item">
+            <div class="timeline__media">
+              <Photo label={s.tag} ratio="1 / 1" />
+              <span class="timeline__tag">{s.n}</span>
+            </div>
+            <span class="timeline__dot" aria-hidden="true"></span>
+            <div class="timeline__text">
+              <p class="timeline__eyebrow">{s.eyebrow}</p>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <a class="pill" href={s.href}>{s.cta}</a>
+            </div>
+          </li>
         ))}
       </ol>
     </div>
@@ -128,12 +143,21 @@ const steps = [
   .split__text h2 { margin: 14px 0 20px; }
   .split__text p:not(.eyebrow) { color: var(--ink-soft); max-width: 480px; margin-bottom: 28px; }
 
-  .steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-  .steps li { padding: 32px 32px 0 0; }
-  .steps li + li { padding-left: 32px; border-left: 1px solid var(--line); }
-  .steps__n { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .1em; }
-  .steps h3 { font-size: 28px; margin: 12px 0; }
-  .steps p { color: var(--ink-soft); font-size: 15px; }
+  .how__head { text-align: center; margin-bottom: clamp(40px, 6vw, 72px); }
+  .how__head h2 { font-size: clamp(30px, 4vw, 46px); margin-top: 12px; }
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px dashed rgba(97,18,40,.3); transform: translateX(-1px); }
+  .timeline__item { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 9vw, 140px); align-items: center; padding: clamp(24px, 3vw, 40px) 0; }
+  .timeline__media { position: relative; border-radius: 28px; overflow: hidden; max-width: 520px; justify-self: end; width: 100%; }
+  .timeline__media :global(.photo) { border-radius: 28px; }
+  .timeline__tag { position: absolute; top: 20px; left: 20px; padding: 8px 16px; border-radius: 999px; background: rgba(27,20,22,.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; font-size: 14px; font-weight: 500; }
+  .timeline__dot { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: var(--burgundy); transform: translate(-50%, -50%); box-shadow: 0 0 0 6px var(--cream); }
+  .timeline__text { max-width: 500px; }
+  .timeline__eyebrow { color: var(--burgundy); font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+  .timeline__text h3 { font-size: clamp(36px, 4.6vw, 60px); margin-bottom: 16px; }
+  .timeline__text p:not(.timeline__eyebrow) { font-size: 17px; color: var(--ink-soft); margin-bottom: 24px; }
+  .pill { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; transition: background .2s; }
+  .pill:hover { background: var(--burgundy); }
 
   .quote { text-align: center; }
   .quote blockquote { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.35; margin: 20px 0 0; color: var(--burgundy); }
@@ -148,8 +172,10 @@ const steps = [
   @media (max-width: 900px) {
     .tiles { grid-template-columns: repeat(2, 1fr); }
     .split, .visit { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: 1fr; }
-    .steps li, .steps li + li { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+    .timeline::before { left: 10px; }
+    .timeline__item { grid-template-columns: 1fr; gap: 24px; padding: 0 0 48px 44px; }
+    .timeline__media { justify-self: start; }
+    .timeline__dot { left: 11px; top: 28px; }
   }
   @media (max-width: 600px) {
     .hero { min-height: 560px; }
