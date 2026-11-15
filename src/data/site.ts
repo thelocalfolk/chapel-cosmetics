@@ -15,7 +15,7 @@ export const site = {
   bookingUrl: '/book',
   bookingEmbedUrl: '',
   giftCardUrl: '',
-  instagram: '', // TODO
+  instagram: 'https://www.instagram.com/chapelcosmetics/',
 };
 
 export const hours: { day: string; time: string }[] = [
