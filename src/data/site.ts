@@ -11,10 +11,11 @@ export const site = {
   address: { street: '217 Chapel St', suburb: 'Prahran', state: 'VIC', postcode: '3181' },
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=217+Chapel+St+Prahran+VIC+3181',
   mapsEmbed: 'https://www.google.com/maps?q=217+Chapel+St+Prahran+VIC+3181&output=embed',
-  // TODO: replace with the real booking and gift card links (Timely / Fresha / etc.)
-  bookingUrl: '/book',
-  bookingEmbedUrl: '',
-  giftCardUrl: '',
+  // Online booking (Acuity Scheduling). Every "Book" button on the site uses bookingUrl;
+  // the /book page embeds bookingEmbedUrl.
+  bookingUrl: 'https://app.acuityscheduling.com/schedule.php?owner=17302299',
+  bookingEmbedUrl: 'https://app.acuityscheduling.com/schedule.php?owner=17302299&ref=embedded_csp',
+  giftCardUrl: '', // TODO
   instagram: '', // TODO
 };
 
