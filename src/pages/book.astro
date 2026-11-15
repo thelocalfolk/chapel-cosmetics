@@ -20,7 +20,11 @@ const policies = [
     <div class="wrap book">
       <div class="book__widget">
         {site.bookingEmbedUrl ? (
-          <iframe src={site.bookingEmbedUrl} title="Online booking" loading="lazy"></iframe>
+          <>
+            <iframe src={site.bookingEmbedUrl} title="Schedule Appointment" width="100%" height="800" frameborder="0" allow="payment"></iframe>
+            <script is:inline src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript" async></script>
+            <p class="book__fallback">Trouble seeing the booking form? <a href={site.bookingUrl} target="_blank" rel="noopener">Open it in a new tab</a> or call <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phoneDisplay}</a>.</p>
+          </>
         ) : (
           <div class="book__placeholder">
             <p class="eyebrow">Online booking</p>
@@ -39,7 +43,10 @@ const policies = [
 </Base>
 <style>
   .book { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
-  .book__widget iframe { width: 100%; min-height: 760px; border: 1px solid var(--line); }
+  .book__widget { background: #fff; border-top: 1px solid var(--ink); padding-top: 20px; }
+  .book__widget iframe { display: block; width: 100%; min-height: 800px; border: 0; background: #fff; }
+  .book__fallback { font-size: 13px; color: var(--ink-soft); margin: 16px 0 0; }
+  .book__fallback a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
   .book__placeholder { background: var(--cream); padding: clamp(32px, 5vw, 64px); text-align: center; min-height: 360px; display: grid; place-content: center; gap: 8px; justify-items: center; }
   .book__placeholder p:not(.eyebrow) { color: var(--ink-soft); max-width: 380px; }
   .book__policy { border-top: 1px solid var(--ink); padding-top: 20px; position: sticky; top: 140px; }
