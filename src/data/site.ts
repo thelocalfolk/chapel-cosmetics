@@ -7,7 +7,7 @@ export const site = {
     'Nurse-led cosmetic medicine on Chapel St, Prahran, focused on healthy, natural-looking skin quality and a personal, consistent experience every visit.',
   phone: '+61 430 037 293',
   phoneDisplay: '0430 037 293',
-  email: '', // TODO: add clinic email
+  email: 'claudia@chapelcosmetics.com',
   address: { street: '217 Chapel St', suburb: 'Prahran', state: 'VIC', postcode: '3181' },
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=217+Chapel+St+Prahran+VIC+3181',
   mapsEmbed: 'https://www.google.com/maps?q=217+Chapel+St+Prahran+VIC+3181&output=embed',

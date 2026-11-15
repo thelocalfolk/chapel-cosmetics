@@ -8,6 +8,7 @@ const year = new Date().getFullYear();
       <p class="footer__title">Visit</p>
       <p>{site.address.street}<br />{site.address.suburb}, {site.address.state} {site.address.postcode}</p>
       <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></p>
+      {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
       <a class="footer__link" href={site.mapsUrl} target="_blank" rel="noopener">Get directions</a>
     </div>
     <div>
